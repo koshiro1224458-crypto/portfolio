@@ -1,0 +1,88 @@
+/* 背景動画 */
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* メインのリストの基本 */
+main ul {
+  display: flex;
+  gap: 10%;
+}
+
+main li {
+  list-style: none;
+}
+
+main ul li a {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 60px;
+  overflow: visible; /* ← 重要：スライド要素が切れない */
+  color: transparent; /* 初期文字は隠す */
+  width: 300px;
+  font-family: cursive;
+}
+
+/* ★（初期は白） */
+.menu a::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: white;
+  font-size: 60px;
+  -webkit-text-stroke: 1px #F8F8F8;
+  text-shadow: 0px 1px 4px #23430C;
+  transition: color .3s;
+}
+
+/* ★ ホバー色変更 */
+.menu li:nth-child(1) a:hover::before { color: rgb(0, 255, 225); }
+.menu li:nth-child(2) a:hover::before { color: #ffcc00; }
+.menu li:nth-child(3) a:hover::before { color: red; }
+
+/* ▼▼▼ 1つ目・2つ目：文字スライド ▼▼▼ */
+.menu a::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 70px;
+  top: 100%;  /* 下に隠す */
+  white-space: nowrap;
+  color: white;
+  transition: top .35s ease-out;
+}
+
+.menu a:hover::after {
+  top: 0;
+}
+
+/* ▼▼▼ 3つ目：画像スライド ▼▼▼ */
+
+/* 3つ目は文字出さない */
+.menu a.img-item::after {
+  content: "";
+}
+
+/* 3つ目の画像を下→上へスライド */
+.menu a.img-item img {
+  position: absolute;
+  left: 70px;
+  top: 100%;
+  width: 60px;  /* 適宜調整 */
+  height: auto;
+  transition: top .35s ease-out;
+  pointer-events: none; /* hover判定を邪魔しない */
+}
+
+/* 3つ目のhover時 */
+.menu a.img-item:hover img {
+  top: 0;
+}
